@@ -24,10 +24,15 @@ class LaporanController extends Controller
         if ($request->filled('kategori')) {
             $query->where('id_kategori', $request->kategori);
         }
-
+ 
+        // Filter by date range
+        if ($request->filled('tgl_awal') && $request->filled('tgl_akhir')) {
+            $query->whereBetween('tanggal_masuk', [$request->tgl_awal, $request->tgl_akhir]);
+        }
+ 
         $barang = $query->paginate(15)->withQueryString();
         $kategoris = Kategori::all();
-
+ 
         // Calculate statistics
         $statistics = [
             'total_barang' => Barang::count(),
@@ -54,9 +59,14 @@ class LaporanController extends Controller
         if ($request->filled('kategori')) {
             $query->where('id_kategori', $request->kategori);
         }
-
+ 
+        // Filter by date range
+        if ($request->filled('tgl_awal') && $request->filled('tgl_akhir')) {
+            $query->whereBetween('tanggal_masuk', [$request->tgl_awal, $request->tgl_akhir]);
+        }
+ 
         $barang = $query->get();
-
+ 
         // Calculate statistics
         $statistics = [
             'total_barang' => $barang->count(),

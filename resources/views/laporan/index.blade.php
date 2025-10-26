@@ -95,6 +95,20 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        {{-- Tanggal Masuk Awal --}}
+                        <div>
+                            <x-input-label for="tgl_awal" :value="__('Tanggal Masuk Awal')" />
+                            <input type="date" id="tgl_awal" name="tgl_awal" value="{{ request('tgl_awal') }}"
+                                class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                        </div>
+
+                        {{-- Tanggal Masuk Akhir --}}
+                        <div>
+                            <x-input-label for="tgl_akhir" :value="__('Tanggal Masuk Akhir')" />
+                            <input type="date" id="tgl_akhir" name="tgl_akhir" value="{{ request('tgl_akhir') }}"
+                                class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                        </div>
                     </div>
 
                     <div class="flex flex-wrap items-center gap-2">
@@ -106,7 +120,7 @@
                             Filter
                         </x-primary-button>
 
-                        @if(request()->hasAny(['kategori']))
+                        @if(request()->hasAny(['kategori', 'tgl_awal', 'tgl_akhir']))
                         <a href="{{ route('laporan.index') }}">
                             <x-secondary-button type="button">
                                 Reset
@@ -122,10 +136,6 @@
                             </svg>
                             Cetak Laporan
                         </button>
-
-                        <div class="flex-1"></div>
-
-
                     </div>
                 </form>
             </x-card>
